@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
-HOST_PYTHON="${KUMITE_HOST_PYTHON:-/mnt/c/Users/sahil/AppData/Local/Programs/Python/Python311/python.exe}"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+HOST_PYTHON="${KUMITE_HOST_PYTHON:-/mnt/c/Users/sahil/AppData/Local/Programs/Python/Python311/python.exe}"
+if [ -x "$ROOT/.venv/Scripts/python.exe" ]; then HOST_PYTHON="$ROOT/.venv/Scripts/python.exe"; fi
 cd "$ROOT"
 case "${1:-}" in
   python) shift; exec "$HOST_PYTHON" "$@" ;;
