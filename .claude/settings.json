@@ -1,12 +1,23 @@
 {
   "hooks": {
-    "SessionStart": [
+    "PreToolUse": [
       {
-        "matcher": "startup|resume",
+        "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR/tools/status/status.py\" --inbox 2>/dev/null || true",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/tools/guard_push.py\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/tools/lint_comments.py\" --hook",
             "timeout": 60
           }
         ]
